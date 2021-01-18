@@ -50,9 +50,43 @@ sudo service vpp restart
 ### VPP上へのinterface生成方法
 * ```sudo lshw -class network -businfo``` にて追加予定のPCIの```@```以降を確認。
   * 追加予定のinterfaceはリンクダウンしている必要があるので```ip link```で確認し、UPだったらDownさせる。（Interfaceの設定を削除し、再起動が必要な場合あり）
+* ```/etc/vpp/startup.conf``` (VPPの初期設定ファイル) の ```dpdk``` 配下に先ほどのPCIの値を追加。
+* VPPサービスを再起動すると、interfaceが追加される。
+```
+ubuntu@ubuntu-kudo-01:~$ sudo lshw -class network -businfo
+Bus info          Device     Class      Description
+===================================================
+pci@0000:00:03.0             network    Virtio network device
+virtio@0          ens3       network    Ethernet interface
+pci@0000:00:04.0             network    Virtio network device
 
+ubuntu@ubuntu-kudo-01:~$ sudo vi /etc/vpp/startup.conf
+...
+dpdk {
+	dev 0000:00:04.0
+}
+...
+ubuntu@ubuntu-kudo-01:~$ sudo service vpp restart
+ubuntu@ubuntu-kudo-01:~$ sudo vppctl show interface
+              Name               Idx    State  MTU (L3/IP4/IP6/MPLS)     Counter          Count
+GigabitEthernet0/4/0              1     down         9000/0/0/0
+local0                            0     down          0/0/0/0
+```
+
+### VPP の Startup-configの作成
+VPPの初期設定ファイル ```/etc/vpp/startup.conf``` にStartup-configを読み込むようにすることが可能。\
+※下記の```userid```は自身のディレクトリに適宜変更すること。ちなみにファイルを置く場所はどこでもよいので、適宜パス自体も変更のこと。
+```
+unix {
+	...
+	startup-config /home/userid/setup.cfg
+	...
+}
+```
+
+記載方法は```vppctl```の状態で入力するコマンドをそのまま記載するだけ。コメントアウトの方法がわかってないので、要確認。
 
 
 ## VPPとNetwork Namespaceの結合方法
-
+参考URL: [Configure_VPP_As_A_Router_Between_Namespaces - FD.io](https://wiki.fd.io/view/VPP/Configure_VPP_As_A_Router_Between_Namespaces)
 
