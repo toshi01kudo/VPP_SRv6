@@ -12,7 +12,7 @@ UbuntuへVPPをインストールし、SRv6環境を構築する際のConfig等�
 Network Namespaceを利用し、仮想的に4台構成として検証を行う。\
 ホストOSのみVPP上でSRv6を動作させ、両端の機器はPC相当として動作させるので、Namespaceの機能のみで十分。
 
-![NWD](./VPP_SRv6_NWD.png)
+![NWD](./VPP_SRv6_NWDv2.png)
 
 ## 検証内容
 * End.DX4
