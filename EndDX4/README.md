@@ -35,12 +35,12 @@ PING 172.24.62.100 (172.24.62.100) 56(84) bytes of data.
 4 packets transmitted, 4 received, 0% packet loss, time 3050ms
 rtt min/avg/max/mdev = 0.463/1.951/5.865/2.262 ms
 
-// Namespaceから対向へTrace
+// Namespaceから対向へTrace (途中経路のIPv4アドレスを設定しないと表示されない)
 root@ubuntu-kudo-01:~# traceroute 172.24.62.100
 traceroute to 172.24.62.100 (172.24.62.100), 30 hops max, 60 byte packets
- 1  172.24.60.10 (172.24.60.10)  1.616 ms  2.114 ms  2.215 ms
- 2  172.24.60.10 (172.24.60.10)  2.296 ms  2.474 ms  2.574 ms
- 3  172.24.62.100 (172.24.62.100)  2.678 ms  2.820 ms  2.895 ms
+ 1  * * *
+ 2  * * *
+ 3  172.24.62.100 (172.24.62.100)  1.798 ms  1.843 ms  1.891 ms
 ```
 
 * VPPからのPingは失敗する。BSIDのポリシーに合わないため。
