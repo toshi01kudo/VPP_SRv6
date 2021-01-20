@@ -19,11 +19,11 @@ dpdk {
 ## 設定解説
 
  - Node SID と End Function設定: ```sr localsid address fd60:5::5 behavior end.dx4 host-RT1 172.24.61.100```
-  - Node SID宛に着信したパケットについて、End Functionに基づいて処理。今回はEnd.DX4なのでそのまま出力IFと宛先IPを記載。
+    - Node SID宛に着信したパケットについて、End Functionに基づいて処理。今回はEnd.DX4なのでそのまま出力IFと宛先IPを記載。
  - Binding SID と Segment List設定: ```sr policy add bsid fd60:5::999:5 next fd60:10::10 encap```
-  - Binding SIDはポリシー名のような扱い。Binding SIDと紐づけられた通信については、Segment Listの順にSRv6区間を通過。
+    - Binding SIDはポリシー名のような扱い。Binding SIDと紐づけられた通信については、Segment Listの順にSRv6区間を通過。
  - SR-TE設定: ```sr steer l3 172.24.62.0/24 via bsid fd60:5::999:5```
-  - 指定宛先の通信はBinding SIDのポリシーに基づいて処理。
+    - 指定宛先の通信はBinding SIDのポリシーに基づいて処理。
  - カプセル化送信元アドレス設定: ```set sr encaps source addr fd60:5::5```
 
 ## 検証結果
