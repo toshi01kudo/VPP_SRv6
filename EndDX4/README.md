@@ -1,5 +1,9 @@
 # VPP_SRv6_End.DX4機能検証
 
+End Functionのうち、End.DX4の検証をまとめる。\
+End.DX4 はSRv6区間から出るタイミングで、IPv4に変換してする機能。\
+VRFなどは適用しない。
+
 ## 各ファイル説明
 * setup.cfg: VPPのstartup-config。```機器名_setup.cfg``` の形式で保存していますが、```setup.cfg```に名前変更してください。
 * create-ns.sh: Network Namespaceを設定するシェルスクリプト。```sudo bash create-ns.sh``` で実行することを想定。```機器名_create-ns.sh``` の形式で保存していますが、```create-ns.sh```に名前変更してください。
